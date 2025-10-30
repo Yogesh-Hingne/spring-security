@@ -14,7 +14,7 @@ public class RegisterUserService {
     private PasswordEncoder passwordEncoder;
 
 
-    public UserCredential saveUserCredential(UserCredential userCredential) {
+    public UserCredential saveUser(UserCredential userCredential) {
         userCredential.setPassword(passwordEncoder.encode(userCredential.getPassword()));
         return userRepo.save(userCredential);
     }
