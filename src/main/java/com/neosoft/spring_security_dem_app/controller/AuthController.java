@@ -2,7 +2,6 @@ package com.neosoft.spring_security_dem_app.controller;
 
 import com.neosoft.spring_security_dem_app.entity.UserCredential;
 import com.neosoft.spring_security_dem_app.service.CustomUserDetailsService;
-import com.neosoft.spring_security_dem_app.service.RegisterUserService;
 import com.neosoft.spring_security_dem_app.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,19 +20,13 @@ import java.util.Map;
 @RequestMapping("auth")
 public class AuthController {
     @Autowired
-    private RegisterUserService registerUserService;
-    @Autowired
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostMapping("/register")
-    public ResponseEntity<UserCredential> saveUser(@RequestBody UserCredential userCredential) {
-        UserCredential user = registerUserService.saveUser(userCredential);
-        return ResponseEntity.ok(user);
-    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> loginUser(@RequestBody UserCredential userCredential) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredential.getUsername(),userCredential.getPassword()));
